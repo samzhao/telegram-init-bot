@@ -3,6 +3,24 @@
 const getCurrentWeather = require('./lib/getCurrentWeather')
 
 exports.handle = function handle(client) {
+  const sayHello = client.createStep({
+    satisfied() {
+      return Boolean(client.getConversationState().helloSent)
+    },
+
+    prompt() {
+      client.addResponse('welcome')
+      client.addResponse('provide/documentation', {
+        documentation_link: 'http://SamOnRails.com'
+      })
+      client.addResponse('provide/instructions')
+      client.updateConversationState({
+        helloSent: true
+      })
+      client.done()
+    }
+  })
+
   const collectCity = client.createStep({
     satisfied() {
       return Boolean(client.getConversationState().weatherCity)
@@ -64,6 +82,15 @@ exports.handle = function handle(client) {
     streams: {
       main: 'getWeather',
       getWeather: [collectCity, provideWeather],
+    }
+  })
+
+  client.runFlow({
+    classifications: {},
+    streams: {
+      main: 'hi',
+      hi: [sayHello],
+      getWeather: [collectCity, provideWeather]
     }
   })
 }
