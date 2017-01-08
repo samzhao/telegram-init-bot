@@ -32,10 +32,6 @@ exports.handle = function handle(client) {
 
     prompt() {
       client.addResponse('greeting')
-      client.addResponse('provide/documentation', {
-        documentation_link: 'http://SamOnRails.com'
-      })
-      client.addResponse('provide/instructions')
       client.updateConversationState({
         helloSent: true
       })
