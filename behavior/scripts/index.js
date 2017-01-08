@@ -120,12 +120,12 @@ exports.handle = function handle(client) {
     }
   })
 
-  client.runFlow({
-    classifications: {},
-    streams: {
-      main: 'hi',
-      hi: [sayHello],
-      getWeather: [collectCity, provideWeather]
-    }
-  })
+  // client.runFlow({
+  //   classifications: {},
+  //   streams: {
+  //     main: 'hi',
+  //     hi: [sayHello],
+  //     getWeather: [collectCity, provideWeather]
+  //   }
+  // })
 }
